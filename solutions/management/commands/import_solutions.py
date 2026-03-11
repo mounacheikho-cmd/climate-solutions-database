@@ -19,7 +19,7 @@ class Command(BaseCommand):
         created = 0
         with open(path, newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
-            for row in reader:~
+            for row in reader:
                 # conservative mapping: geographic_applicability -> country
                 country = row.get('geographic_applicability') or row.get('country') or 'Unknown'
                 loc, _ = Location.objects.get_or_create(country=country, region='')
