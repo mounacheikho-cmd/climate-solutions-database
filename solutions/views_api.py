@@ -43,6 +43,9 @@ class ClimateSolutionViewSet(viewsets.ReadOnlyModelViewSet):
 
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
+from django.core.management import call_command
+from io import StringIO
+import threading
 
 
 class ImportCSVView(APIView):
@@ -80,3 +83,33 @@ class ImportCSVView(APIView):
             if created_flag:
                 created += 1
         return Response({'created': created})
+
+
+class AdminFetchSolutionsView(APIView):
+    """Trigger the fetch_solutions management command from HTTP.
+
+    WARNING: This endpoint is intended for development/admin use only. It
+    runs server-side commands and should be protected in production.
+    """
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        run_scraper = request.data.get('run_scraper', False)
+        import_to_db = request.data.get('import_to_db', False)
+        upload_to_sheet = request.data.get('upload_to_sheet', False)
+        out = request.data.get('out', 'data/solutions_combined.csv')
+        sheet_id = request.data.get('sheet_id')
+        sheet_name = request.data.get('sheet_name')
+
+        # run in a thread to avoid blocking long requests; return immediately
+        def _runner():
+            sio = StringIO()
+            try:
+                call_command('fetch_solutions', out=out, run_scraper=run_scraper, import_to_db=import_to_db, upload_to_sheet=upload_to_sheet, sheet_id=sheet_id, sheet_name=sheet_name)
+            except Exception as e:
+                sio.write(str(e))
+            # NOTE: we don't persist the sio output; logs are available server-side
+
+        t = threading.Thread(target=_runner, daemon=True)
+        t.start()
+        return Response({'status': 'started'})
