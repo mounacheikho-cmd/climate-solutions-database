@@ -1,7 +1,7 @@
 annotated-doc==0.0.4
 annotated-types==0.7.0
 anyio==4.12.1
-asgiref==3.11.1
+asgiref==3.6.0
 Authlib==1.6.9
 bandit==1.9.4
 beautifulsoup4==4.14.3
@@ -12,7 +12,7 @@ charset-normalizer==3.4.5
 click==8.3.1
 coverage==7.13.4
 cryptography==46.0.5
-Django==6.0.3
+Django==4.2.21
 django-cors-headers==4.9.0
 djangorestframework==3.16.1
 dparse==0.6.4
