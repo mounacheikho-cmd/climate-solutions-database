@@ -1,6 +1,5 @@
 from django.db import models
 from django.core.validators import URLValidator
-from django.contrib.postgres.fields import ArrayField
 
 class Location(models.Model):
     """Location lookup table"""
@@ -67,7 +66,8 @@ class ClimateSolution(models.Model):
     timeframe = models.ForeignKey(Timeframe, on_delete=models.PROTECT)
     solution_type = models.ForeignKey(SolutionType, on_delete=models.PROTECT)
     source_url = models.URLField(validators=[URLValidator()])
-    tags = ArrayField(models.CharField(max_length=50), blank=True, default=list)
+    # Use JSONField for tags to remain database-agnostic (works with SQLite)
+    tags = models.JSONField(blank=True, default=list)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
