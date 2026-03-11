@@ -84,3 +84,7 @@ typing-inspection==0.4.2
 typing_extensions==4.15.0
 uritemplate==4.2.0
 urllib3==2.6.3
+selenium==4.18.2
+webdriver-manager==4.5.0
+scrapy==2.8.0
+ratelimit==2.2.1

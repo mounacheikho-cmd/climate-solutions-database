@@ -51,7 +51,10 @@ def get_sheets_service():
         logger.error("Google client libraries are required: pip install google-api-python-client google-auth")
         raise
 
-    scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+    # Need read/write when updating the sheet from CSV
+    scopes = [
+        "https://www.googleapis.com/auth/spreadsheets",  # read/write
+    ]
 
     sa_path = os.getenv("GOOGLE_SERVICE_ACCOUNT_FILE")
     creds = None
@@ -103,6 +106,48 @@ def export_sheet_to_csv(spreadsheet_id: str, sheet_name: Optional[str] = None, o
             writer.writerow(row)
     logger.info("Wrote sheet to %s", output_path)
     return output_path
+
+
+def update_sheet_from_csv(spreadsheet_id: str, csv_path: str, sheet_name: Optional[str] = None, clear_first: bool = True) -> None:
+    """Replace the contents of a sheet with the CSV at `csv_path`.
+
+    If `sheet_name` is None the first sheet will be targeted.
+    This function performs a value update over the sheet's A1 range.
+    """
+    try:
+        from googleapiclient.errors import HttpError
+    except Exception:
+        logger.error("googleapiclient is required to update sheets")
+        raise
+
+    service = get_sheets_service()
+    sheets = service.spreadsheets()
+
+    # Read CSV values
+    values = []
+    with open(csv_path, newline="", encoding="utf-8") as f:
+        reader = csv.reader(f)
+        for row in reader:
+            values.append(row)
+
+    if not values:
+        raise ValueError("CSV is empty")
+
+    # If sheet_name unspecified attempt to write to the first sheet by using A1 notation
+    range_name = f"{sheet_name}!A1" if sheet_name else "A1"
+
+    body = {"values": values}
+
+    try:
+        if clear_first and sheet_name:
+            # clear the full sheet before writing
+            sheets.values().clear(spreadsheetId=spreadsheet_id, range=sheet_name).execute()
+
+        result = sheets.values().update(spreadsheetId=spreadsheet_id, range=range_name, valueInputOption="RAW", body=body).execute()
+        logger.info("Updated sheet %s with %d cells", spreadsheet_id, result.get("updatedCells"))
+    except HttpError as e:
+        logger.error("Failed to update sheet: %s", e)
+        raise
 
 
 def normalize_header(headers: List[str]) -> List[str]:
