@@ -1,0 +1,21 @@
+id,name,category,scale,cost_estimate,climate_hazards_targeted,geographic_applicability,evidence_level,implementation_complexity,co_benefits,source_url,last_updated
+sol-001,Mangrove restoration,Nature-based,Local,50000,sea-level rise,Coastal regions,proven,Medium,Biodiversity,https://example.org/mangrove,2024-11-01
+sol-002,Urban tree planting,Nature-based,Local,20000,heat wave,Urban areas,proven,Low,Air quality,https://example.org/urban-trees,2025-01-05
+sol-003,Rainwater harvesting,Infrastructure,Local,15000,drought,Household/Local,pilot,Low,Water security,https://example.org/rainwater,2024-09-15
+sol-004,Permeable pavements,Infrastructure,Local,30000,flooding,Urban catchments,modeled,Medium,Reduced runoff,https://example.org/permeable,2025-02-10
+sol-005,Coastal dune rehabilitation,Nature-based,Regional,80000,storm surge,Coastal belts,pilot,Medium,Habitat creation,https://example.org/dunes,2024-12-20
+sol-006,Early warning systems,Policy,National,120000,storms,National,proven,Low,Disaster risk reduction,https://example.org/ews,2025-03-01
+sol-007,Drip irrigation,Technology-based,Local,25000,drought,Farmland,proven,Low,Efficiency gains,https://example.org/drip,2024-10-11
+sol-008,Green roofs,Nature-based,Local,40000,heat wave,Urban buildings,modeled,Medium,Insulation,https://example.org/greenroofs,2025-01-20
+sol-009,Check dams,Infrastructure,Local,35000,runoff,Small watersheds,proven,Medium,Sediment control,https://example.org/checkdams,2024-08-30
+sol-010,Salinity intrusion barriers,Infrastructure,Regional,200000,sea-level rise,Estuaries,pilot,High,Coastal protection,https://example.org/salinity,2024-11-10
+sol-011,Climate-smart agriculture,Policy,Regional,100000,drought,Regional farming,proven,Medium,Yield resilience,https://example.org/csa,2025-02-25
+sol-012,Wetland restoration,Nature-based,Regional,90000,flooding,Lowland basins,proven,Medium,Water filtration,https://example.org/wetland,2024-07-18
+sol-013,Subsurface drainage,Infrastructure,Local,45000,flooding,Farmland,modeled,Medium,Crop protection,https://example.org/drainage,2024-09-05
+sol-014,Household insulation,Technology-based,Local,12000,heat wave,Residential areas,proven,Low,Energy savings,https://example.org/insulation,2025-01-10
+sol-015,Managed realignment,Policy,Regional,300000,sea-level rise,Coastal zones,pilot,High,Habitat creation,https://example.org/realignment,2024-12-05
+sol-016,Reservoir reoperation,Policy,National,0,drought,National reservoirs,modeled,Medium,Water allocation,https://example.org/reservoir,2024-06-12
+sol-017,Desalination plants,Technology-based,National,5000000,drought,Coastal cities,proven,High,Water supply,https://example.org/desal,2025-03-10
+sol-018,Perimeter floodwalls,Infrastructure,Local,150000,flooding,Urban neighborhoods,proven,High,Property protection,https://example.org/floodwalls,2024-10-22
+sol-019,Community-based insurance,Policy,Local,80000,extreme weather,Communities,pilot,Low,Financial resilience,https://example.org/insurance,2024-08-01
+sol-020,Managed aquifer recharge,Technology-based,Regional,220000,drought,Groundwater basins,modeled,High,Water security,https://example.org/mar,2024-11-30
